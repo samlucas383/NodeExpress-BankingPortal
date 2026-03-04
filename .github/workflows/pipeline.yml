@@ -1,6 +1,8 @@
 name: CI Pipeline
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,3 +20,10 @@ jobs:
 
     - name: Run Trivy scan
       uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: fs
+        scan-ref: .
+        format: table
+        exit-code: '0'
+        ignore-unfixed: true
+        severity: CRITICAL,HIGH
